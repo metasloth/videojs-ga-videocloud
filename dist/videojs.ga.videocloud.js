@@ -1,7 +1,7 @@
 /*
-* videojs-ga-videocloud - v0.4.2 - 2016-08-24
+* videojs-ga-videocloud - v0.4.2 - 2018-01-25
 * Based on videojs-ga 0.4.2
-* Copyright (c) 2016 Michael Bensoussan
+* Copyright (c) 2018 Michael Bensoussan
 * Licensed MIT
 */
 (function() {
