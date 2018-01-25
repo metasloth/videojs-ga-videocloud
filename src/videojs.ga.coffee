@@ -47,6 +47,13 @@ videojs.plugin 'ga', (options = {}) ->
   if typeof options.trackerName == 'string'
     trackerName = options.trackerName + '.'
 
+  # if the tracker has a linked domain 
+  options.trackerDomain = options.trackerDomain || null
+
+  trackerDomain = ''
+  if typeof options.trackerDomain == 'string'
+    trackerDomain = options.trackerDomain + '.'
+
   # init a few variables
   percentsAlreadyTracked = []
   startTracked = false
@@ -100,7 +107,12 @@ videojs.plugin 'ga', (options = {}) ->
         a.src = g
         m.parentNode.insertBefore a, m
       ) window, document, "script", "//www.google-analytics.com/analytics.js", "ga"
-      ga('create', tracker, 'auto', options.trackerName)
+      if (trackerDomain)
+        ga('create', tracker, 'auto', {'allowLinker': true});
+        ga('require', 'linker');
+        ga('linker:autoLink', [trackerDomain]);
+      else
+        ga('create', tracker, 'auto', options.trackerName)
       ga(trackerName + 'require', 'displayfeatures')
 
   adStateRegex = /(\s|^)vjs-ad-(playing|loading)(\s|$)/

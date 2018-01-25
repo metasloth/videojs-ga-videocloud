@@ -8,7 +8,7 @@
   var __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
   videojs.plugin('ga', function(options) {
-    var adStateRegex, currentVideo, dataSetupOptions, defaultLabel, defaultsEventsToTrack, end, endTracked, error, eventCategory, eventLabel, eventNames, eventsToTrack, fullscreen, getEventName, isInAdState, loaded, parsedOptions, pause, percentsAlreadyTracked, percentsPlayedInterval, play, player, referrer, resize, seekEnd, seekStart, seeking, sendbeacon, sendbeaconOverride, start, startTracked, timeupdate, tracker, trackerName, volumeChange,
+    var adStateRegex, currentVideo, dataSetupOptions, defaultLabel, defaultsEventsToTrack, end, endTracked, error, eventCategory, eventLabel, eventNames, eventsToTrack, fullscreen, getEventName, isInAdState, loaded, parsedOptions, pause, percentsAlreadyTracked, percentsPlayedInterval, play, player, referrer, resize, seekEnd, seekStart, seeking, sendbeacon, sendbeaconOverride, start, startTracked, timeupdate, tracker, trackerDomain, trackerName, volumeChange,
       _this = this;
     if (options == null) {
       options = {};
@@ -38,6 +38,11 @@
     trackerName = '';
     if (typeof options.trackerName === 'string') {
       trackerName = options.trackerName + '.';
+    }
+    options.trackerDomain = options.trackerDomain || null;
+    trackerDomain = '';
+    if (typeof options.trackerDomain === 'string') {
+      trackerDomain = options.trackerDomain + '.';
     }
     percentsAlreadyTracked = [];
     startTracked = false;
@@ -89,7 +94,15 @@
           a.src = g;
           return m.parentNode.insertBefore(a, m);
         })(window, document, "script", "//www.google-analytics.com/analytics.js", "ga");
-        ga('create', tracker, 'auto', options.trackerName);
+        if (trackerDomain) {
+          ga('create', tracker, 'auto', {
+            'allowLinker': true
+          });
+          ga('require', 'linker');
+          ga('linker:autoLink', [trackerDomain]);
+        } else {
+          ga('create', tracker, 'auto', options.trackerName);
+        }
         ga(trackerName + 'require', 'displayfeatures');
       }
     }
