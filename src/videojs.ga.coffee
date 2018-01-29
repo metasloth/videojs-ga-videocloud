@@ -52,7 +52,7 @@ videojs.plugin 'ga', (options = {}) ->
 
   trackerDomain = ''
   if typeof options.trackerDomain == 'string'
-    trackerDomain = options.trackerDomain + '.'
+    trackerDomain = options.trackerDomain
 
   # init a few variables
   percentsAlreadyTracked = []

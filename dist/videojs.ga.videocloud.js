@@ -1,5 +1,5 @@
 /*
-* videojs-ga-videocloud - v0.4.2 - 2018-01-25
+* videojs-ga-videocloud - v0.4.2 - 2018-01-29
 * Based on videojs-ga 0.4.2
 * Copyright (c) 2018 Michael Bensoussan
 * Licensed MIT
@@ -42,7 +42,7 @@
     options.trackerDomain = options.trackerDomain || null;
     trackerDomain = '';
     if (typeof options.trackerDomain === 'string') {
-      trackerDomain = options.trackerDomain + '.';
+      trackerDomain = options.trackerDomain;
     }
     percentsAlreadyTracked = [];
     startTracked = false;
